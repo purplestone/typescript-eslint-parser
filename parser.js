@@ -10,7 +10,14 @@
 
 const parse = require("@typescript-eslint/typescript-estree").parse;
 const astNodeTypes = require("@typescript-eslint/typescript-estree").AST_NODE_TYPES;
-const traverser = require("./node_modules/eslint/lib/shared/traverser.js");
+let traverser;
+
+try {
+    traverser = require("./node_modules/eslint/lib/shared/traverser.js");
+} catch (error) {
+    traverser = require("../eslint/lib/shared/traverser.js");
+}
+
 const analyzeScope = require("./analyze-scope");
 const visitorKeys = require("./visitor-keys");
 

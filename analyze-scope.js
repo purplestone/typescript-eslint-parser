@@ -3,11 +3,20 @@
 /* eslint-disable new-cap, no-underscore-dangle */
 
 const escope = require("eslint-scope");
-const { Definition, ParameterDefinition } = require("./node_modules/eslint-scope/lib/definition");
-const OriginalPatternVisitor = require("./node_modules/eslint-scope/lib/pattern-visitor");
-const Reference = require("./node_modules/eslint-scope/lib/reference");
-const OriginalReferencer = require("./node_modules/eslint-scope/lib/referencer");
-const Scope = require("./node_modules/eslint-scope/lib/scope").Scope;
+let pathMd = "/node_modules";
+let OriginalPatternVisitor;
+
+try {
+    OriginalPatternVisitor = require("."+pathMd+"/eslint-scope/lib/pattern-visitor");
+} catch (error) {
+    pathMd = ".";
+    OriginalPatternVisitor = require("."+pathMd+"/eslint-scope/lib/pattern-visitor");
+}
+
+const { Definition, ParameterDefinition } = require("."+pathMd+"/eslint-scope/lib/definition");
+const Reference = require("."+pathMd+"/eslint-scope/lib/reference");
+const OriginalReferencer = require("."+pathMd+"/eslint-scope/lib/referencer");
+const Scope = require("."+pathMd+"/eslint-scope/lib/scope").Scope;
 const fallback = require("eslint-visitor-keys").getKeys;
 const childVisitorKeys = require("./visitor-keys");
 
